@@ -1,47 +1,58 @@
 from django.test import SimpleTestCase
 
 
-class TestHeyYou(SimpleTestCase):
-    def test_hey_nate(self):
-        response = self.client.get("/Hey/nate")
-        self.assertContains(response, "Hey, nate!")
+# Create your tests here.
+class testFontTimes(SimpleTestCase):
+    def testChoco(self):
+        response = self.client.get("/warmup-2/font-times/?n=2&term=chocolate")
+        self.assertContains(response, "chocho")
 
-    def test_hey_bcca(self):
-        response = self.client.get("/Hey/BCCA")
-        self.assertContains(response, "Hey, BCCA!")
+    def testPoo(self):
+        response = self.client.get("/warmup-2/font-times/?n=3&term=Chocolate")
+        self.assertContains(response, "ChoChoCho")
 
-
-class TestAgeIn(SimpleTestCase):
-    def test_age_in_2050_born_2000(self):
-        response = self.client.get("/age-in/2050/2000")
-        self.assertContains(response, "50")
-
-    def test_age_in_2050_born_0(self):
-        response = self.client.get("/age-in/2050/0")
-        self.assertContains(response, "2050")
-
-    def test_age_in_2010_born_1995(self):
-        response = self.client.get("/age-in/2010/1995")
-        self.assertContains(response, "15")
-
-    def test_age_in_1950_born_1920(self):
-        response = self.client.get("/age-in/1950/120")
-        self.assertContains(response, "30")
+    def testA(self):
+        response = self.client.get("/warmup-2/font-times/?n=3&term=Abc")
+        self.assertContains(response, "AbcAbcAbc")
 
 
-class TestOrderTotal(SimpleTestCase):
-    def test_order_total_0_0_0(self):
-        response = self.client.get("/order-total/0/0/0")
-        self.assertContains(response, "0.0")
+class NoTeenSum(SimpleTestCase):
+    def test123(self):
+        response = self.client.get("/logic-2/no-teen-sum/?X=1&Y=2&Z=3")
+        self.assertContains(response, 6)
 
-    def test_order_total_1_1_1(self):
-        response = self.client.get("/order-total/1/1/1")
-        self.assertContains(response, "7.0")
+    def test12_13_5(self):
+        response = self.client.get("/logic-2/no-teen-sum/?X=2&Y=13&Z=1")
+        self.assertContains(response, 3)
 
-    def test_order_total_2_3_4(self):
-        response = self.client.get("/order-total/2/3/4")
-        self.assertContains(response, "17.5")
+    def test5_10_19(self):
+        response = self.client.get("/logic-2/no-teen-sum/?X=2&Y=1&Z=14")
+        self.assertContains(response, 3)
 
-    def test_order_total_4_3_2(self):
-        response = self.client.get("/order-total/4/3/2")
-        self.assertContains(response, "24.5")
+
+class XYZ(SimpleTestCase):
+    def test_abcxyz(self):
+        response = self.client.get("/string-2/xyz-there/?term=abcxyz")
+        self.assertContains(response, True)
+
+    def test_abcx0yz(self):
+        response = self.client.get("/string-2/xyz-there/?term=abc.xyz")
+        self.assertContains(response, False)
+
+    def test_abcxyz2(self):
+        response = self.client.get("/string-2/xyz-there/?term=xyz.abc")
+        self.assertContains(response, True)
+
+
+class Centered(SimpleTestCase):
+    def test_123(self):
+        response = self.client.get("/list-2/centered-average/?X=1&Y=2&Z=3")
+        self.assertContains(response, 2)
+
+    def test_456(self):
+        response = self.client.get("/list-2/centered-average/?X=4&Y=5&Z=6")
+        self.assertContains(response, 5)
+
+    def test_789(self):
+        response = self.client.get("/list-2/centered-average/?X=7&Y=8&Z=9")
+        self.assertContains(response, 8)
